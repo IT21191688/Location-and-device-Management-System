@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const deviceSchema = new mongoose.Schema(
   {
-    serialNumber: {
+    serialnumber: {
       type: String,
       required: [true, "Serial number is required"],
-      unique: true,
+      //unique: true,
     },
     type: {
       type: String,

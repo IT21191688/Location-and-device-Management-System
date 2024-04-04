@@ -4,16 +4,43 @@ import deviceService from "../services/device-service";
 import userService from "../services/user-service";
 import NotFoundError from "../utills/error/error.classes/NotFoundError";
 import CustomResponse from "../utills/responce";
+import Device from "../models/device-model";
+import constants from "../utills/constants";
+
+import commonService from "../config/storage-config";
 
 const CreateDevice = async (req: Request, res: Response) => {
   const body = req.body;
   const auth = req.auth;
+  let file: any = req.file;
+
+  // console.log(body);
 
   try {
     const user = await userService.findById(auth._id);
     if (!user) throw new NotFoundError("User not found!");
 
-    const createdDevice = await deviceService.saveDevice(body, null);
+    const newDevice = new Device({
+      serialnumber: body.serialnumber,
+      type: body.type,
+      image: body.image,
+      status: body.status,
+      location: body.location,
+    });
+
+    let uploadedObj: any = null;
+    if (file) {
+      uploadedObj = await commonService.uploadImageAndGetUri(
+        file,
+        constants.CLOUDINARY.FILE_NAME + "/devices"
+      );
+    }
+
+    if (uploadedObj != null) {
+      newDevice.image = uploadedObj.uri.toString();
+    }
+
+    const createdDevice = await deviceService.saveDevice(newDevice, null);
 
     CustomResponse(
       res,

@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const deviceSchema = new mongoose_1.default.Schema({
-    serialNumber: {
+    serialnumber: {
         type: String,
         required: [true, "Serial number is required"],
-        unique: true,
+        //unique: true,
     },
     type: {
         type: String,

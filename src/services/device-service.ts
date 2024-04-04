@@ -1,11 +1,11 @@
 import Device from "../models/device-model";
 
 const saveDevice = async (deviceData: any, session: any) => {
-  const device = new Device(deviceData);
+  //console.log(deviceData);
   if (session) {
-    return await device.save({ session });
+    return await deviceData.save({ session });
   } else {
-    return await device.save();
+    return await deviceData.save();
   }
 };
 
@@ -18,9 +18,18 @@ const findDeviceById = (deviceId: any) => {
 };
 
 const editDeviceDetails = async (deviceId: string, updatedDetails: any) => {
-  return await Device.findByIdAndUpdate(deviceId, updatedDetails, {
-    new: true,
-  });
+  try {
+    //console.log(updatedDetails);
+    const updatedDevice = await Device.findByIdAndUpdate(
+      deviceId,
+      updatedDetails,
+      { new: true }
+    );
+    return updatedDevice;
+  } catch (error) {
+    console.error("Error updating device:", error);
+    throw error; // Rethrow the error to handle it in the calling function
+  }
 };
 
 const deleteDeviceById = async (deviceId: string) => {

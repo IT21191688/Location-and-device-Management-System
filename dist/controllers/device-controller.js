@@ -9,14 +9,33 @@ const device_service_1 = __importDefault(require("../services/device-service"));
 const user_service_1 = __importDefault(require("../services/user-service"));
 const NotFoundError_1 = __importDefault(require("../utills/error/error.classes/NotFoundError"));
 const responce_1 = __importDefault(require("../utills/responce"));
+const device_model_1 = __importDefault(require("../models/device-model"));
+const constants_1 = __importDefault(require("../utills/constants"));
+const storage_config_1 = __importDefault(require("../config/storage-config"));
 const CreateDevice = async (req, res) => {
     const body = req.body;
     const auth = req.auth;
+    let file = req.file;
+    // console.log(body);
     try {
         const user = await user_service_1.default.findById(auth._id);
         if (!user)
             throw new NotFoundError_1.default("User not found!");
-        const createdDevice = await device_service_1.default.saveDevice(body, null);
+        const newDevice = new device_model_1.default({
+            serialnumber: body.serialnumber,
+            type: body.type,
+            image: body.image,
+            status: body.status,
+            location: body.location,
+        });
+        let uploadedObj = null;
+        if (file) {
+            uploadedObj = await storage_config_1.default.uploadImageAndGetUri(file, constants_1.default.CLOUDINARY.FILE_NAME + "/devices");
+        }
+        if (uploadedObj != null) {
+            newDevice.image = uploadedObj.uri.toString();
+        }
+        const createdDevice = await device_service_1.default.saveDevice(newDevice, null);
         (0, responce_1.default)(res, true, http_status_codes_1.StatusCodes.CREATED, "Device created successfully!", createdDevice);
     }
     catch (error) {

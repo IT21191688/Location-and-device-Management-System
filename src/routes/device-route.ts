@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userMiddleware from "../middlewares/user-middleware";
+import commonMiddleware from "../config/storage-middleware";
 import {
   CreateDevice,
   DeleteDevice,
@@ -14,6 +15,7 @@ const DeviceRouter = Router();
 DeviceRouter.post(
   "/createDevice",
   userMiddleware.authorize([constants.USER.ROLES.USER]),
+  commonMiddleware.multerUploader.single("image"),
   CreateDevice
 );
 
@@ -23,9 +25,10 @@ DeviceRouter.get(
   FindAllDevices
 );
 
-DeviceRouter.post(
+DeviceRouter.put(
   "/updateDevice/:deviceId",
   userMiddleware.authorize([constants.USER.ROLES.USER]),
+  //  commonMiddleware.multerUploader.single("image"),
   UpdateDevice
 );
 

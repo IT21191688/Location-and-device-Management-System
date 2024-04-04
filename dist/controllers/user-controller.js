@@ -51,7 +51,7 @@ const RegisterUser = async (req, res) => {
         return (0, responce_1.default)(res, true, http_status_codes_1.StatusCodes.CREATED, "User registered successfully!", createdUser);
     }
     catch (error) {
-        ErrorHandler_1.default.handle(error, req, res); // Handle error using ErrorHandler
+        ErrorHandler_1.default.handle(res, error); // Handle error using ErrorHandler
     }
 };
 exports.RegisterUser = RegisterUser;
@@ -81,7 +81,7 @@ const UserLogin = async (req, res) => {
         });
     }
     catch (error) {
-        ErrorHandler_1.default.handle(error, req, res); // Pass error to ErrorHandler
+        ErrorHandler_1.default.handle(res, error); // Pass error to ErrorHandler
     }
 };
 exports.UserLogin = UserLogin;
@@ -95,7 +95,7 @@ const GetUserProfile = async (req, res) => {
         return (0, responce_1.default)(res, true, http_status_codes_1.StatusCodes.OK, "Profile fetched successfully!", user);
     }
     catch (error) {
-        ErrorHandler_1.default.handle(error, req, res); // Handle error using ErrorHandler
+        ErrorHandler_1.default.handle(res, error);
     }
 };
 exports.GetUserProfile = GetUserProfile;

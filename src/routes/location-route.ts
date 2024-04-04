@@ -23,7 +23,7 @@ LocationRouter.get(
   FindAllLocations
 );
 
-LocationRouter.post(
+LocationRouter.put(
   "/updateLocation/:locationId",
   userMiddleware.authorize([constants.USER.ROLES.USER]),
   UpdateLocation

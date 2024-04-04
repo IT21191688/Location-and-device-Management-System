@@ -1,4 +1,4 @@
-//import { Response, Request, NextFunction } from "express";
+import { Response } from "express";
 import NotFoundError from "./error.classes/NotFoundError";
 import BadRequestError from "./error.classes/BadRequestError";
 import ForbiddenError from "./error.classes/ForbiddenError";
@@ -6,26 +6,27 @@ import ConflictError from "./error.classes/ConflictError";
 import UnauthorizedError from "./error.classes/UnauthorizedError";
 import InternalServerError from "./error.classes/InternalServerError";
 import CustomAPIError from "./error.classes/CustomAPIError";
+import CustomResponse from "../responce";
 
 class ErrorHandler {
-  static handle(err: any, req: any, res: any) {
+  static handle(res: Response, err: any) {
     if (err instanceof NotFoundError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return CustomResponse(res, false, err.statusCode, err.message, null);
     } else if (err instanceof BadRequestError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return CustomResponse(res, false, err.statusCode, err.message, null);
     } else if (err instanceof ForbiddenError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return CustomResponse(res, false, err.statusCode, err.message, null);
     } else if (err instanceof ConflictError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return CustomResponse(res, false, err.statusCode, err.message, null);
     } else if (err instanceof UnauthorizedError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return CustomResponse(res, false, err.statusCode, err.message, null);
     } else if (err instanceof InternalServerError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return CustomResponse(res, false, err.statusCode, err.message, null);
     } else if (err instanceof CustomAPIError) {
-      return res.status(500).json({ message: err.message });
+      return CustomResponse(res, false, 500, err.message, null);
     } else {
       console.error(err);
-      return res.status(500).json({ message: "Internal server error" });
+      return CustomResponse(res, false, 500, "Internal server error", null);
     }
   }
 }

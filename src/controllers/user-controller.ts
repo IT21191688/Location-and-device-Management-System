@@ -64,7 +64,7 @@ const RegisterUser = async (req: Request, res: Response) => {
       createdUser
     );
   } catch (error) {
-    ErrorHandler.handle(error, req, res); // Handle error using ErrorHandler
+    ErrorHandler.handle(res, error); // Handle error using ErrorHandler
   }
 };
 
@@ -104,7 +104,7 @@ const UserLogin = async (req: Request, res: Response) => {
       user: user,
     });
   } catch (error) {
-    ErrorHandler.handle(error, req, res); // Pass error to ErrorHandler
+    ErrorHandler.handle(res, error); // Pass error to ErrorHandler
   }
 };
 
@@ -126,7 +126,7 @@ const GetUserProfile = async (req: Request, res: Response) => {
       user
     );
   } catch (error) {
-    ErrorHandler.handle(error, req, res); // Handle error using ErrorHandler
+    ErrorHandler.handle(res, error);
   }
 };
 

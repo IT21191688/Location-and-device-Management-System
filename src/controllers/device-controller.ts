@@ -122,6 +122,42 @@ const FindDeviceById = async (req: Request, res: Response) => {
   }
 };
 
+const FindAllDeviceByLocationId = async (req: Request, res: Response) => {
+  const locationId = req.params.locationId;
+  const auth = req.auth;
+
+  try {
+    const user = await userService.findById(auth._id);
+    if (!user) throw new NotFoundError("User not found!");
+
+    const device = await deviceService.findDevicesByLocationId(locationId);
+    if (!device) {
+      CustomResponse(
+        res,
+        false,
+        StatusCodes.NOT_FOUND,
+        "Device not found",
+        null
+      );
+    } else {
+      CustomResponse(
+        res,
+        true,
+        StatusCodes.OK,
+        "Device retrieved successfully",
+        device
+      );
+    }
+  } catch (error: any) {
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Error retrieving device",
+      error: error.message,
+    });
+  }
+};
+
 const UpdateDevice = async (req: Request, res: Response) => {
   const deviceId = req.params.deviceId;
   const updatedData = req.body;
@@ -204,4 +240,5 @@ export {
   FindDeviceById,
   UpdateDevice,
   DeleteDevice,
+  FindAllDeviceByLocationId,
 };

@@ -19,6 +19,9 @@ const findAllDevices = () => {
 const findDeviceById = (deviceId) => {
     return device_model_1.default.findById(deviceId);
 };
+const findDevicesByLocationId = (locationId) => {
+    return device_model_1.default.find({ location: locationId });
+};
 const editDeviceDetails = async (deviceId, updatedDetails) => {
     try {
         //console.log(updatedDetails);
@@ -39,4 +42,5 @@ exports.default = {
     findDeviceById,
     editDeviceDetails,
     deleteDeviceById,
+    findDevicesByLocationId,
 };

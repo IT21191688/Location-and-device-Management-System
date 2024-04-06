@@ -31,4 +31,7 @@ const deviceSchema = new mongoose_1.default.Schema({
     timestamps: true,
     versionKey: false,
 });
+// deviceSchema.pre("find", function () {
+//   this.populate("location");
+// });
 exports.default = mongoose_1.default.model("Device", deviceSchema);

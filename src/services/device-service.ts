@@ -17,6 +17,10 @@ const findDeviceById = (deviceId: any) => {
   return Device.findById(deviceId);
 };
 
+const findDevicesByLocationId = (locationId: any) => {
+  return Device.find({ location: locationId });
+};
+
 const editDeviceDetails = async (deviceId: string, updatedDetails: any) => {
   try {
     //console.log(updatedDetails);
@@ -42,4 +46,5 @@ export default {
   findDeviceById,
   editDeviceDetails,
   deleteDeviceById,
+  findDevicesByLocationId,
 };

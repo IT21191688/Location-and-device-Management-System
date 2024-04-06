@@ -7,6 +7,7 @@ import {
   FindAllDevices,
   FindDeviceById,
   UpdateDevice,
+  FindAllDeviceByLocationId,
 } from "../controllers/device-controller";
 import constants from "../utills/constants";
 
@@ -36,6 +37,12 @@ DeviceRouter.get(
   "/getOneDevice/:deviceId",
   userMiddleware.authorize([constants.USER.ROLES.USER]),
   FindDeviceById
+);
+
+DeviceRouter.get(
+  "/getAllDeviceByLocation/:locationId",
+  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  FindAllDeviceByLocationId
 );
 
 DeviceRouter.delete(

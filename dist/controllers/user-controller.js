@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserLogin = exports.GetUserProfile = exports.RegisterUser = void 0;
+exports.DeleteUserById = exports.GetAllUsers = exports.UserLogin = exports.GetUserProfile = exports.RegisterUser = void 0;
 const user_utill_1 = __importDefault(require("../utills/user-utill"));
 const user_service_1 = __importDefault(require("../services/user-service"));
 const user_model_1 = __importDefault(require("../models/user-model"));
@@ -99,3 +99,30 @@ const GetUserProfile = async (req, res) => {
     }
 };
 exports.GetUserProfile = GetUserProfile;
+const DeleteUserById = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const deletedUser = await user_service_1.default.deleteById(userId);
+        if (!deletedUser) {
+            throw new NotFoundError_1.default("User not found!");
+        }
+        return (0, responce_1.default)(res, true, http_status_codes_1.StatusCodes.OK, "User deleted successfully!", deletedUser);
+    }
+    catch (error) {
+        ErrorHandler_1.default.handle(res, error);
+    }
+};
+exports.DeleteUserById = DeleteUserById;
+const GetAllUsers = async (req, res) => {
+    try {
+        const users = await user_service_1.default.findAllUsers();
+        if (!users || users.length === 0) {
+            throw new NotFoundError_1.default("No users found!");
+        }
+        return (0, responce_1.default)(res, true, http_status_codes_1.StatusCodes.OK, "Users fetched successfully!", users);
+    }
+    catch (error) {
+        ErrorHandler_1.default.handle(res, error);
+    }
+};
+exports.GetAllUsers = GetAllUsers;

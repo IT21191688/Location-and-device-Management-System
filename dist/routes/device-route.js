@@ -16,5 +16,6 @@ DeviceRouter.put("/updateDevice/:deviceId", user_middleware_1.default.authorize(
 device_controller_1.UpdateDevice);
 DeviceRouter.get("/getOneDevice/:deviceId", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.USER]), device_controller_1.FindDeviceById);
 DeviceRouter.get("/getAllDeviceByLocation/:locationId", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.USER]), device_controller_1.FindAllDeviceByLocationId);
+DeviceRouter.get("/getAllUnallocatedDevice", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.USER]), device_controller_1.FindAllDeviceByLocationId);
 DeviceRouter.delete("/deleteDevice/:deviceId", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.USER]), device_controller_1.DeleteDevice);
 exports.default = DeviceRouter;

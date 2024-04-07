@@ -5,6 +5,8 @@ import {
   RegisterUser,
   GetUserProfile,
   UserLogin,
+  GetAllUsers,
+  DeleteUserById,
 } from "../controllers/user-controller";
 import constants from "../utills/constants";
 
@@ -21,6 +23,18 @@ UserRouter.get(
     constants.USER.ROLES.USER,
   ]),
   GetUserProfile
+);
+
+UserRouter.get(
+  "/getAllUsers",
+  UserMiddleware.authorize([constants.USER.ROLES.USER]),
+  GetAllUsers
+);
+
+UserRouter.delete(
+  "/deleteUser/:userId",
+  UserMiddleware.authorize([constants.USER.ROLES.USER]),
+  DeleteUserById
 );
 
 export default UserRouter;

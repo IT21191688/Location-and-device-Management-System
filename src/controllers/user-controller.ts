@@ -130,4 +130,46 @@ const GetUserProfile = async (req: Request, res: Response) => {
   }
 };
 
-export { RegisterUser, GetUserProfile, UserLogin };
+const DeleteUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+
+    const deletedUser = await userService.deleteById(userId);
+
+    if (!deletedUser) {
+      throw new NotFoundError("User not found!");
+    }
+
+    return CustomResponse(
+      res,
+      true,
+      StatusCodes.OK,
+      "User deleted successfully!",
+      deletedUser
+    );
+  } catch (error) {
+    ErrorHandler.handle(res, error);
+  }
+};
+
+const GetAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await userService.findAllUsers();
+
+    if (!users || users.length === 0) {
+      throw new NotFoundError("No users found!");
+    }
+
+    return CustomResponse(
+      res,
+      true,
+      StatusCodes.OK,
+      "Users fetched successfully!",
+      users
+    );
+  } catch (error) {
+    ErrorHandler.handle(res, error);
+  }
+};
+
+export { RegisterUser, GetUserProfile, UserLogin, GetAllUsers, DeleteUserById };

@@ -17,8 +17,19 @@ const findById = async (id: string) => {
   return await User.findById(id);
 };
 
+const deleteById = async (id: string) => {
+  const deletedUser = await User.findByIdAndDelete(id);
+  return deletedUser;
+};
+
+const findAllUsers = async () => {
+  return await User.find();
+};
+
 export default {
   save,
   findByEmail,
   findById,
+  findAllUsers,
+  deleteById,
 };

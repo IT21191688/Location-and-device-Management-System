@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FindAllDeviceByLocationId = exports.DeleteDevice = exports.UpdateDevice = exports.FindDeviceById = exports.FindAllDevices = exports.CreateDevice = void 0;
+exports.FindUnallocatedDevices = exports.FindAllDeviceByLocationId = exports.DeleteDevice = exports.UpdateDevice = exports.FindDeviceById = exports.FindAllDevices = exports.CreateDevice = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const device_service_1 = __importDefault(require("../services/device-service"));
 const user_service_1 = __importDefault(require("../services/user-service"));
@@ -67,6 +67,25 @@ const FindAllDevices = async (req, res) => {
     }
 };
 exports.FindAllDevices = FindAllDevices;
+const FindUnallocatedDevices = async (req, res) => {
+    const auth = req.auth;
+    try {
+        const user = await user_service_1.default.findById(auth._id);
+        if (!user)
+            throw new NotFoundError_1.default("User not found!");
+        const allDevices = await device_service_1.default.findUnallocatedDevices();
+        (0, responce_1.default)(res, true, http_status_codes_1.StatusCodes.OK, "All Unallocated devices retrieved successfully!", allDevices);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: "Error retrieving devices",
+            error: error.message,
+        });
+    }
+};
+exports.FindUnallocatedDevices = FindUnallocatedDevices;
 // Add other device controller functions here
 const FindDeviceById = async (req, res) => {
     const deviceId = req.params.deviceId;

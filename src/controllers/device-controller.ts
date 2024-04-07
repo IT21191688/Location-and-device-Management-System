@@ -84,6 +84,31 @@ const FindAllDevices = async (req: Request, res: Response) => {
   }
 };
 
+const FindUnallocatedDevices = async (req: Request, res: Response) => {
+  const auth = req.auth;
+
+  try {
+    const user = await userService.findById(auth._id);
+    if (!user) throw new NotFoundError("User not found!");
+
+    const allDevices = await deviceService.findUnallocatedDevices();
+    CustomResponse(
+      res,
+      true,
+      StatusCodes.OK,
+      "All Unallocated devices retrieved successfully!",
+      allDevices
+    );
+  } catch (error: any) {
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Error retrieving devices",
+      error: error.message,
+    });
+  }
+};
+
 // Add other device controller functions here
 
 const FindDeviceById = async (req: Request, res: Response) => {
@@ -241,4 +266,5 @@ export {
   UpdateDevice,
   DeleteDevice,
   FindAllDeviceByLocationId,
+  FindUnallocatedDevices,
 };

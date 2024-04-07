@@ -18,8 +18,17 @@ const findByEmail = async (email) => {
 const findById = async (id) => {
     return await user_model_1.default.findById(id);
 };
+const deleteById = async (id) => {
+    const deletedUser = await user_model_1.default.findByIdAndDelete(id);
+    return deletedUser;
+};
+const findAllUsers = async () => {
+    return await user_model_1.default.find();
+};
 exports.default = {
     save,
     findByEmail,
     findById,
+    findAllUsers,
+    deleteById,
 };

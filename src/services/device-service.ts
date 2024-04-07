@@ -17,6 +17,10 @@ const findDeviceById = (deviceId: any) => {
   return Device.findById(deviceId);
 };
 
+const findUnallocatedDevices = () => {
+  return Device.find({ location: { $exists: false } });
+};
+
 const findDevicesByLocationId = (locationId: any) => {
   return Device.find({ location: locationId });
 };
@@ -47,4 +51,5 @@ export default {
   editDeviceDetails,
   deleteDeviceById,
   findDevicesByLocationId,
+  findUnallocatedDevices,
 };

@@ -16,45 +16,45 @@ const DeviceRouter = Router();
 
 DeviceRouter.post(
   "/createDevice",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   commonMiddleware.multerUploader.single("image"),
   CreateDevice
 );
 
 DeviceRouter.get(
   "/getAllDevices",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   FindAllDevices
 );
 
 DeviceRouter.put(
   "/updateDevice/:deviceId",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   //  commonMiddleware.multerUploader.single("image"),
   UpdateDevice
 );
 
 DeviceRouter.get(
   "/getOneDevice/:deviceId",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   FindDeviceById
 );
 
 DeviceRouter.get(
   "/getAllDeviceByLocation/:locationId",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   FindAllDeviceByLocationId
 );
 
 DeviceRouter.get(
   "/getAllUnallocatedDevice",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   FindAllDeviceByLocationId
 );
 
 DeviceRouter.delete(
   "/deleteDevice/:deviceId",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   DeleteDevice
 );
 

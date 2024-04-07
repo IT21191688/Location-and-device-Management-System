@@ -27,13 +27,13 @@ UserRouter.get(
 
 UserRouter.get(
   "/getAllUsers",
-  UserMiddleware.authorize([constants.USER.ROLES.USER]),
+  UserMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   GetAllUsers
 );
 
 UserRouter.delete(
   "/deleteUser/:userId",
-  UserMiddleware.authorize([constants.USER.ROLES.USER]),
+  UserMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   DeleteUserById
 );
 

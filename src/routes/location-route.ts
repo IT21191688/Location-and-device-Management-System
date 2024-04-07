@@ -13,31 +13,31 @@ const LocationRouter = Router();
 
 LocationRouter.post(
   "/createLocation",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   CreateLocation
 );
 
 LocationRouter.get(
   "/getAllLocations",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   FindAllLocations
 );
 
 LocationRouter.put(
   "/updateLocation/:locationId",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   UpdateLocation
 );
 
 LocationRouter.get(
   "/getOneLocation/:locationId",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   FindLocationById
 );
 
 LocationRouter.delete(
   "/deleteLocation/:locationId",
-  userMiddleware.authorize([constants.USER.ROLES.USER]),
+  userMiddleware.authorize([constants.USER.ROLES.ADMIN]),
   DeleteLocation
 );
 

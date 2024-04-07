@@ -14,6 +14,6 @@ UserRouter.get("/profile", user_middleware_1.default.authorize([
     constants_1.default.USER.ROLES.ADMIN,
     constants_1.default.USER.ROLES.USER,
 ]), user_controller_1.GetUserProfile);
-UserRouter.get("/getAllUsers", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.USER]), user_controller_1.GetAllUsers);
-UserRouter.delete("/deleteUser/:userId", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.USER]), user_controller_1.DeleteUserById);
+UserRouter.get("/getAllUsers", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.ADMIN]), user_controller_1.GetAllUsers);
+UserRouter.delete("/deleteUser/:userId", user_middleware_1.default.authorize([constants_1.default.USER.ROLES.ADMIN]), user_controller_1.DeleteUserById);
 exports.default = UserRouter;
